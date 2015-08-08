@@ -65,7 +65,7 @@
 (defn delete
   [auth & keys]
   (let [{:keys [url params]} (build-cm-request auth "data")]
-    (client/delete url params)))
+    (client/delete (str url "?keys=" (keys-string (map name keys))) params)))
 
 (defn query
   "Queries cloudmine using search query language"
@@ -85,3 +85,39 @@
     (response-body (client/put url
                                (conj params
                                      {:body data})))))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

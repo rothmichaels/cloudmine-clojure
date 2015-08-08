@@ -1,2 +1,11 @@
-lib/
-classes/
+/target
+/classes
+pom.xml
+pom.xml.asc
+*.jar
+*.class
+/.lein-*
+/.nrepl-port
+.hgignore
+.hg/
+.DS_Store
