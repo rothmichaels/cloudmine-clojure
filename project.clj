@@ -1,6 +1,6 @@
 (defproject cloudmine "0.1.0"
   :description "Simple Cloudmine Client"
-  :dependencies [[org.clojure/clojure "1.6.0"]
+  :dependencies [[org.clojure/clojure "1.7.0"]
                  [org.clojure/data.json "0.1.1"]
                  [clj-http "0.1.1"]
                  [org.clojure/data.codec "0.1.0"]])
