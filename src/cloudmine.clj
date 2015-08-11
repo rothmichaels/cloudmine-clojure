@@ -24,7 +24,7 @@
        (b64/encode
         (.getBytes s))))
 
-(defn- build-cm-request
+(defn build-cm-request
   [auth action]
   (if (and (contains? auth :email) (contains? auth :password))
     {:params {:headers {"X-Cloudmine-ApiKey" (:cm-api-key auth)
@@ -49,6 +49,17 @@
                                (conj params
                                      {:body (json-str data)})))))
 
+(defn update
+  "Adds data to cloudmine or if keys exist, updates data. Pass in
+  credentials as a map, and uses data-key as the key to put the
+  data. data-key should be a clojure keyword, data should be a native
+  clojure data structure."
+  [auth data]
+  (let [{:keys [url params]} (build-cm-request auth "text")]
+    (response-body (client/post url
+                               (conj params
+                                     {:body (json-str data)})))))
+
 (defn get
   "Queries cloudmine by keys"
   [auth & keys]
@@ -60,12 +71,14 @@
 (defn user
   [auth]
   (let [{:keys [url params]} (build-cm-request auth "account")]
-    (client/post url params)))
+    (response-body (client/post url params))))
 
 (defn delete
   [auth & keys]
   (let [{:keys [url params]} (build-cm-request auth "data")]
-    (client/delete url params)))
+    (response-body (client/delete (str url "?keys="
+                                       (keys-string (map name keys)))
+                                  params))))
 
 (defn query
   "Queries cloudmine using search query language"
@@ -77,7 +90,7 @@
 (defn get-binary
   [auth key]
   (let [{:keys [url params]} (build-cm-request auth "binary")]
-    (client/get (str url "/" key) params)))
+    (response-body (client/get (str url "/" key) params))))
 
 (defn put-binary
   [auth data]

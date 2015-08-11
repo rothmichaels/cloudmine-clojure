@@ -1,4 +1,4 @@
-(defproject cloudmine "0.1.0"
+(defproject cloudmine "0.1.1"
   :description "Simple Cloudmine Client"
   :dependencies [[org.clojure/clojure "1.7.0"]
                  [org.clojure/data.json "0.1.1"]
